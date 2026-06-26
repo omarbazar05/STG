@@ -11,7 +11,16 @@
     <?php include __DIR__ . '/../partials/navbar.php'; ?>
 
     <main>
-        <?= $content ?? '' ?>
+        <?php if (!empty($isLoggedIn)): ?>
+            <div class="app-layout">
+                <?php include __DIR__ . '/../partials/sidebar.php'; ?>
+                <div class="app-content">
+                    <?= $content ?? '' ?>
+                </div>
+            </div>
+        <?php else: ?>
+            <?= $content ?? '' ?>
+        <?php endif; ?>
     </main>
 
     <?php include __DIR__ . '/../partials/footer.php'; ?>
