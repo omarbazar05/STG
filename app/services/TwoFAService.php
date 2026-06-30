@@ -34,11 +34,11 @@ class TwoFAService
 
         try {
             $mail->isSMTP();
-            $mail->Host       = $_ENV['MAIL_HOST'];
-            $mail->Port       = $_ENV['MAIL_PORT'];
+            $mail->Host       = env('MAIL_HOST');
+            $mail->Port       = env('MAIL_PORT');
             $mail->SMTPAuth   = true;
-            $mail->Username   = $_ENV['MAIL_USERNAME'] ?? '';
-            $mail->Password   = $_ENV['MAIL_PASSWORD'] ?? '';
+            $mail->Username   = env('MAIL_USERNAME', '');
+            $mail->Password   = env('MAIL_PASSWORD', '');
             $mail->SMTPSecure = 'tls';
 
             $mail->setFrom('no-reply@absec.ma', 'ABSec');
