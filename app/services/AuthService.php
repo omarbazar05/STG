@@ -12,9 +12,9 @@ class AuthService
     public static function login(string $email, string $password, string $idRaw, string $userType): array
     {
         $modelClass = match ($userType) {
-            'admin'    => \App\Models\Admin::class,
-            'employee' => \App\Models\Employee::class,
-            'client'   => \App\Models\Client::class,
+            'admin'    => \app\models\Admin::class,
+            'employee' => \app\models\Employee::class,
+            'client'   => \app\models\Client::class,
             default    => null,
         };
 
