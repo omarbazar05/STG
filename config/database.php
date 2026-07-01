@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../app/helpers/env.php';
+
 class Database
 {
     private static ?PDO $instance = null;
@@ -7,10 +9,10 @@ class Database
     public static function getConnection(): PDO
     {
         if (self::$instance === null) {
-            $host = env('DB_HOST');
+            $host   = env('DB_HOST', 'localhost');
             $dbname = env('DB_NAME');
-            $user = env('DB_USER');
-            $pass = env('DB_PASS');
+            $user   = env('DB_USER', 'root');
+            $pass   = env('DB_PASS', '');
 
             $dsn = "mysql:host={$host};dbname={$dbname};charset=utf8mb4";
 
