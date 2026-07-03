@@ -6,6 +6,7 @@ require_once __DIR__ . '/../app/helpers/env.php';
 use App\Middlewares\AuthMiddleware;
 use App\Middlewares\CSRFMiddleware;
 
+
 // 1. Charger dotenv EN PREMIER
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();

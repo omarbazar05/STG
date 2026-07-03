@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Services;
+use function verifyHash;
+
+use App\Services\TwoFAService;
+use App\Services\JWTService;
 
 require_once __DIR__ . '/../helpers/security.php';
 

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+use function hashPassword;
+use function verifyHash;
 
 require_once __DIR__ . '/../helpers/security.php';
 
