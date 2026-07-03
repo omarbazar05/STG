@@ -1,6 +1,14 @@
 <?php
 
+
+
 namespace App\Controllers;
+
+use function sanitize;
+use function validateEmail;
+use function errorResponse;
+use function jsonResponse;
+
 
 require_once __DIR__ . '/../services/AuthService.php';
 require_once __DIR__ . '/../services/JWTService.php';
@@ -11,7 +19,10 @@ require_once __DIR__ . '/../models/Session.php';
 require_once __DIR__ . '/../models/Admin.php';
 require_once __DIR__ . '/../helpers/validator.php';
 require_once __DIR__ . '/../helpers/response.php';
+require_once __DIR__ . '/../services/AuditLogger.php';
 
+
+use App\Services\AuditLogger;
 use App\Services\AuthService;
 use App\Services\JWTService;
 use App\Services\TwoFAService;
@@ -63,6 +74,7 @@ class AuthController
             // Délai constant pour éviter les timing attacks
             usleep(random_int(200000, 400000));
             errorResponse('Identifiants invalides.', 401);
+            AuditLogger::loginFailed($email, $userType);
             return;
         }
 
@@ -115,6 +127,7 @@ class AuthController
         // Créer la session en base
         $ip         = $_SERVER['REMOTE_ADDR'] ?? null;
         $sessionToken = Session::create($userId, $userType, $ip);
+        AuditLogger::loginSuccess($userId, $userType);
 
         // Mettre à jour last_login si admin
         if ($userType === 'admin') {
@@ -143,6 +156,7 @@ class AuthController
 
         if (!empty($sessionToken)) {
             Session::destroy($sessionToken);
+            AuditLogger::logout($userId ?? 0, $userType ?? 'unknown');
         }
 
         session_destroy();
