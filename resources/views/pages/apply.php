@@ -4,8 +4,11 @@
 require_once __DIR__ . '/../../../app/models/Internship.php';
 require_once __DIR__ . '/../../../app/models/Application.php';
 
-// Récupération de l'internship_id depuis l'URL
-$internshipId = isset($_GET['internship_id']) ? (int) $_GET['internship_id'] : 0;
+// Récupération de l'internship_id — priorité au controller (URL /apply/{id}),
+// fallback sur $_GET pour tests isolés
+if (!isset($internshipId)) {
+    $internshipId = isset($_GET['internship_id']) ? (int) $_GET['internship_id'] : 0;
+}
 
 // Vérification que le stage existe
 $internship = Internship::findById($internshipId);
@@ -48,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($file['size'] > 2 * 1024 * 1024) {
             $errors[] = "Le CV ne doit pas dépasser 2 Mo.";
         } else {
-            // Nom unique pour éviter les collisions
             $filename  = uniqid('cv_') . '.' . $ext;
             $uploadDir = __DIR__ . '/../../../../storage/uploads/cv/';
             $uploadPath = $uploadDir . $filename;
@@ -58,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
-                // 5. Insertion en BDD
                 $applicationId = Application::create([
                     'internship_id' => $internshipId,
                     'name'          => $name,
@@ -123,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="POST" 
-              action="/test-preview.php?internship_id=<?= (int) $internshipId ?>"
+              action="/apply/<?= (int) $internshipId ?>" 
               enctype="multipart/form-data" 
               class="apply-form">
 
