@@ -11,4 +11,7 @@ return [
         '/login'         => ['controller' => 'AuthController',  'method' => 'showLogin'],
         '/dashboard'     => ['controller' => 'DashboardController', 'method' => 'index', 'auth' => true],
     ],
+     'POST' => [
+        '/apply/{id}'    => ['controller' => 'ApplicationController', 'method' => 'apply'],
+    ],
 ];

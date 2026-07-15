@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[] = "Le CV ne doit pas dépasser 2 Mo.";
         } else {
             $filename  = uniqid('cv_') . '.' . $ext;
-            $uploadDir = __DIR__ . '/../../../../storage/uploads/cv/';
+            $uploadDir = __DIR__ . '/../../../storage/uploads/cv/';
             $uploadPath = $uploadDir . $filename;
 
             if (!is_dir($uploadDir)) {
