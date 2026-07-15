@@ -10,7 +10,7 @@ class Database
     {
         if (self::$instance === null) {
             $host   = env('DB_HOST', 'localhost');
-            $dbname = env('DB_NAME');
+            $dbname = env('DB_NAME','absec_db');
             $user   = env('DB_USER', 'root');
             $pass   = env('DB_PASS', '');
 

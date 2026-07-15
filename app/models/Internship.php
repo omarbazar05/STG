@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../config/database.php';
 class Internship {
 
     private static function getDB(): PDO {
-        return Database::getInstance();
+        return Database::getConnection();
     }
 
     // Récupère tous les stages ouverts
@@ -24,7 +24,8 @@ class Internship {
     // Récupère un stage par son id
     public static function findById(int $id): array|false {
         $db = self::getDB();
-        $stmt = $db->prepare(
+        $stmt = $db->prepare
+        (
             "SELECT id, title, description, requirements, status, created_at 
              FROM cms_stages 
              WHERE id = :id 

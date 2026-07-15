@@ -1,38 +1,10 @@
 <?php $pageTitle = "Stages"; ?>
 
 <?php
-// MOCK — à remplacer plus tard par : $internships = Internship::getAllOpen();
-$internships = [
-    [
-        'id'           => 1,
-        'title'        => 'Stage Analyste SOC Junior',
-        'description'  => 'Rejoignez notre équipe SOC et participez à la surveillance active des infrastructures de nos clients. Vous serez formé aux outils SIEM et SOAR.',
-        'requirements' => 'Étudiant en cybersécurité ou informatique (Bac+3 minimum). Connaissances en réseaux et systèmes. Curiosité et rigueur.',
-        'status'       => 'open',
-        'created_at'   => '2026-06-01',
-    ],
-    [
-        'id'           => 2,
-        'title'        => 'Stage Développeur PHP Backend',
-        'description'  => 'Participez au développement de notre plateforme SOC interne. Vous travaillerez sur l\'API REST, la gestion des incidents et l\'optimisation des performances.',
-        'requirements' => 'Étudiant en développement web (Bac+3 minimum). Maîtrise de PHP, MySQL. Connaissance des bonnes pratiques de sécurité web.',
-        'status'       => 'open',
-        'created_at'   => '2026-06-10',
-    ],
-    [
-        'id'           => 3,
-        'title'        => 'Stage Threat Intelligence',
-        'description'  => 'Analysez les menaces émergentes et rédigez des rapports de veille pour nos clients. Vous utiliserez des outils de Threat Intelligence professionnels.',
-        'requirements' => 'Étudiant en cybersécurité (Bac+4/5). Anglais courant indispensable. Capacité d\'analyse et de synthèse.',
-        'status'       => 'closed',
-        'created_at'   => '2026-05-15',
-    ],
-];
+require_once __DIR__ . '/../../../app/models/Internship.php';
 
-// On filtre pour n'afficher que les stages ouverts
-$openInternships = array_filter($internships, function($internship) {
-    return $internship['status'] === 'open';
-});
+// VRAI appel — plus de mock !
+$openInternships = Internship::getAllOpen();
 ?>
 
 <section class="internships-header">

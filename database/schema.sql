@@ -1,13 +1,9 @@
--- ============================================
--- SCHEMA BASE DE DONNÉES — ABSec Platform
--- ============================================
 
 CREATE DATABASE IF NOT EXISTS absec_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE absec_db;
 
--- ============================================
+
 -- 1. TABLES UTILISATEURS (sans dépendances)
--- ============================================
 
 CREATE TABLE admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
