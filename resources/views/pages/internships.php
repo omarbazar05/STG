@@ -1,10 +1,11 @@
 <?php $pageTitle = "Stages"; ?>
 
 <?php
-require_once __DIR__ . '/../../../app/models/Internship.php';
-
-// VRAI appel — plus de mock !
-$openInternships = Internship::getAllOpen();
+if (!isset($openInternships)) {
+    require_once __DIR__ . '/../../../app/models/Internship.php';
+    // MOCK / fallback — utilisé seulement si le controller n'a pas fourni $openInternships
+    $openInternships = Internship::getAllOpen();
+}
 ?>
 
 <section class="internships-header">
@@ -42,7 +43,7 @@ $openInternships = Internship::getAllOpen();
                     <span class="internship-date">
                         Publié le <?= date('d/m/Y', strtotime($internship['created_at'])) ?>
                     </span>
-                    <a href="/apply?internship_id=<?= (int) $internship['id'] ?>" 
+                    <a href="/apply/<?= (int) $internship['id'] ?>" 
                        class="btn-primary">
                         Postuler
                     </a>
