@@ -44,7 +44,7 @@ if (!isset($post)) {
             <a href="/blog" class="btn-back">← Retour au blog</a>
             <h1><?= htmlspecialchars($post['title']) ?></h1>
             <div class="blog-post-meta">
-                <span>Par <?= htmlspecialchars($post['author']) ?></span>
+                <span>Par Admin #<?= (int) $post['author_id'] ?></span>
                 <span>•</span>
                 <span><?= date('d/m/Y', strtotime($post['published_at'])) ?></span>
             </div>
