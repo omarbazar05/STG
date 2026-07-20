@@ -58,4 +58,54 @@ class Incident {
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    // Statistiques agrégées pour un client
+    public static function getStatsByClientId(int $clientId): array {
+        $db = self::getDB();
+
+        $stmt = $db->prepare(
+            "SELECT severity, COUNT(*) as total
+             FROM incidents
+             WHERE client_id = :client_id
+             GROUP BY severity"
+        );
+        $stmt->execute([':client_id' => $clientId]);
+        $bySeverity = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt = $db->prepare(
+            "SELECT status, COUNT(*) as total
+             FROM incidents
+             WHERE client_id = :client_id
+             GROUP BY status"
+        );
+        $stmt->execute([':client_id' => $clientId]);
+        $byStatus = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return [
+            'by_severity' => $bySeverity,
+            'by_status'   => $byStatus,
+        ];
+    }
+
+    // Statistiques globales (admin)
+    public static function getGlobalStats(): array {
+        $db = self::getDB();
+
+        $stmt = $db->prepare(
+            "SELECT severity, COUNT(*) as total FROM incidents GROUP BY severity"
+        );
+        $stmt->execute();
+        $bySeverity = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt = $db->prepare(
+            "SELECT status, COUNT(*) as total FROM incidents GROUP BY status"
+        );
+        $stmt->execute();
+        $byStatus = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return [
+            'by_severity' => $bySeverity,
+            'by_status'   => $byStatus,
+        ];
+    }
+    
 }

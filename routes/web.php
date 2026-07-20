@@ -12,6 +12,7 @@ return [
         '/dashboard'     => ['controller' => 'DashboardController',  'method' => 'index'], // pas de 'auth' => true ici !
         '/incidents' => ['controller' => 'IncidentController', 'method' => 'index'],
         '/soc-config' => ['controller' => 'SOCController', 'method' => 'index'],
+        '/reports' => ['controller' => 'ReportController', 'method' => 'index'],
     ],
     'POST' => [
         '/apply/{id}'    => ['controller' => 'ApplicationController','method' => 'apply'],
