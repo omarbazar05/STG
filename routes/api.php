@@ -11,7 +11,8 @@ return [
     'GET' => [
         '/api/notifications'        => ['controller' => 'NotificationController', 'method' => 'index',      'auth' => true],
         '/api/notifications/unread' => ['controller' => 'NotificationController', 'method' => 'unread',     'auth' => true],
-         '/api/dashboard-data'       => ['controller' => 'DashboardController',    'method' => 'data',    'auth' => true],
+        '/api/dashboard-data'       => ['controller' => 'DashboardController',    'method' => 'data',    'auth' => true],
+        '/api/incidents' => ['controller' => 'IncidentController', 'method' => 'data', 'auth' => true],
     ],
     'PUT' => [
         '/api/notifications/{id}'   => ['controller' => 'NotificationController', 'method' => 'markRead',  'auth' => true],

@@ -10,6 +10,7 @@ return [
         '/apply/{id}'    => ['controller' => 'ApplicationController','method' => 'apply'],
         '/login'         => ['controller' => 'AuthController',       'method' => 'showLogin'],
         '/dashboard'     => ['controller' => 'DashboardController',  'method' => 'index'], // pas de 'auth' => true ici !
+        '/incidents' => ['controller' => 'IncidentController', 'method' => 'index'],
     ],
     'POST' => [
         '/apply/{id}'    => ['controller' => 'ApplicationController','method' => 'apply'],
