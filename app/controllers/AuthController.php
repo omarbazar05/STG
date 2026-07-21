@@ -24,10 +24,18 @@ class AuthController
     /**
      * GET /login — affiche la page de login
      */
-    public function showLogin(): void
-    {
-        require_once __DIR__ . '/../../resources/views/pages/login.php';
-    }
+   public function showLogin(): void
+{
+    $pageTitle  = "Connexion";
+    $isLoggedIn = false;
+    $userRole   = null;
+
+    ob_start();
+    require __DIR__ . '/../../resources/views/pages/login.php';
+    $content = ob_get_clean();
+
+    require __DIR__ . '/../../resources/views/layouts/main.php';
+}
 
     /**
      * POST /api/login — authentification 3 critères + déclenchement OTP
